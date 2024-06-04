@@ -1,6 +1,2 @@
-from .model import model_pipeline
-from datetime import datetime
-
-def predict(model, input_features):
+def predict(model, input_features: dict):
     return model.predict_one(input_features)
-

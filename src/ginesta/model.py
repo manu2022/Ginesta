@@ -1,21 +1,16 @@
 from river import compose
-from river import linear_model
 from river import preprocessing
 from river import optim
-from river import feature_extraction
-from river import stats
-from typing import Union
+from typing import Literal
+from river import linear_model
+from river import metrics
+from river import evaluate
+from river import datasets
+from typing import Callable
 
+allowed_features = Literal['clouds', 'humidity', 'pressure', 'temperature', 'wind']
 
-
-def model_pipeline(features_selection: list[Union[
-    'moment', 
-    'station', 
-    'clouds', 
-    'humidity', 
-    'pressure', 
-    'temperature']],
-    model_config: dict):
+def model_pipeline(features_selection: list[allowed_features], model_config: dict):
     
     model = compose.Pipeline(
         compose.Select(*features_selection),
@@ -30,11 +25,10 @@ def model_pipeline(features_selection: list[Union[
     return model
 
 
-# def preprocess_model_data(model):
-    
-#     model |= preprocessing.StandardScaler()
-    
-#     return
-#     model |= linear_model.LinearRegression(optimizer=optim.SGD(0.001))
-    
-#     return model
+
+
+def evaluate_model(model, 
+                   dataset,
+                   evaluate_sample = 20_000):
+    evaluate.progressive_val_score(dataset, model, metrics.MAE(), print_every=evaluate_sample)
+
