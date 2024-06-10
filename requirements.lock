@@ -18,6 +18,8 @@ decorator==5.1.1
     # via ipython
 executing==2.0.1
     # via stack-data
+iniconfig==2.0.0
+    # via pytest
 ipykernel==6.29.4
     # via ginesta
 ipython==8.25.0
@@ -40,6 +42,7 @@ numpy==1.26.4
     # via scipy
 packaging==24.0
     # via ipykernel
+    # via pytest
 pandas==2.2.2
     # via river
 parso==0.8.4
@@ -48,6 +51,8 @@ pexpect==4.9.0
     # via ipython
 platformdirs==4.2.2
     # via jupyter-core
+pluggy==1.5.0
+    # via pytest
 polars==0.20.31
     # via river
 prompt-toolkit==3.0.45
@@ -60,6 +65,8 @@ pure-eval==0.2.2
     # via stack-data
 pygments==2.18.0
     # via ipython
+pytest==8.2.2
+    # via ginesta
 python-dateutil==2.9.0.post0
     # via jupyter-client
     # via pandas

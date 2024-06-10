@@ -7,6 +7,7 @@ from river import metrics
 from river import evaluate
 from river import datasets
 from typing import Callable
+import pickle
 
 allowed_features = Literal['clouds', 'humidity', 'pressure', 'temperature', 'wind']
 
@@ -24,11 +25,16 @@ def model_pipeline(features_selection: list[allowed_features], model_config: dic
     
     return model
 
-
-
-
 def evaluate_model(model, 
                    dataset,
                    evaluate_sample = 20_000):
-    evaluate.progressive_val_score(dataset, model, metrics.MAE(), print_every=evaluate_sample)
+    return evaluate.progressive_val_score(dataset, model, metrics.MAE(), print_every=evaluate_sample)
 
+
+def save_model(model, filename):
+    with open(filename, 'wb') as f:
+        pickle.dump(model, f)
+
+def load_model(filename):
+    with open(filename, 'rb') as f:
+        return pickle.load(f)
