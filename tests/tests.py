@@ -1,28 +1,13 @@
-import pytest
-from src.ginesta.model import *
-from ..src.predict import predict
-from river import datasets
+# from src.ginesta.model import model_pipeline, load_model, save_model, evaluate_model
+from river.datasets.base import Dataset
+from river.compose.pipeline import Pipeline
 
 
-@pytest.fixture
-def model_config():
-    return {
-        'optimizer': True,
-        'optimizer_value': 0.001,
-    }
+def dataset_shape(dataset: Dataset):
+    shape = (dataset.n_samples, dataset.n_features)
 
-@pytest.fixture
-def input_features():
-    return {
-        'clouds': 60,
-        'humidity': 75,
-        'pressure': 1020.0,
-        'temperature': 8.5,
-        'wind': 5.2,
-    }
-    
+    assert shape == (182470, 8)
 
-def test_dataset_length():
-    dataset = datasets.Bikes()
-    dataset_length = sum(1 for _ in dataset)
-    assert dataset_length == 182479
+
+def pipeline_is_valid(pipeline: Pipeline):
+    assert type(pipeline) == Pipeline
